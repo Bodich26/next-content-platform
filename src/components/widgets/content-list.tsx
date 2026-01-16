@@ -7,6 +7,11 @@ type Props = {
 export const ContentList = ({ contentData }: Props) => {
   return (
     <section className="flex flex-col gap-4">
+      {contentData.length === 0 && (
+        <p className="text-2xl text-center w-full text-gray-600">
+          Публикаций не найдено!
+        </p>
+      )}
       {contentData.map((item) => (
         <ContentItem
           key={item.id}
@@ -14,6 +19,7 @@ export const ContentList = ({ contentData }: Props) => {
           excerpt={item.excerpt}
           status={item.status}
           updatedAt={item.updatedAt}
+          id={item.id}
         />
       ))}
     </section>

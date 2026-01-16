@@ -5,6 +5,10 @@ import { fetchContent } from "@/entities/api/fetch-content";
 
 export default async function Home() {
   const contentData = await fetchContent();
+  const publishContent = contentData.filter(
+    (item) => item.status === "published"
+  );
+
   return (
     <div className="min-h-screen bg-zinc-100">
       <main className="mx-auto max-w-4xl px-4 py-10 flex flex-col gap-8">
@@ -18,7 +22,7 @@ export default async function Home() {
 
         {/* Список контента */}
         <Suspense fallback={<ContentItemSkeleton />}>
-          <ContentList contentData={contentData} />
+          <ContentList contentData={publishContent} />
         </Suspense>
       </main>
     </div>
