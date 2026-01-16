@@ -4,7 +4,11 @@ import { API_ROUTES, BASE_MOCK_API } from "../../../routes";
 export const fetchContent = async (): Promise<IContent[]> => {
   const URL = `${BASE_MOCK_API}/${API_ROUTES.CONTENT}`;
   const res = await fetch(URL, {
-    cache: "no-store",
+    cache: "force-cache",
+    next: {
+      revalidate: 60,
+      tags: ["content"],
+    },
   });
 
   if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
