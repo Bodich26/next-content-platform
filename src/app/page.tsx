@@ -1,5 +1,7 @@
+import { Suspense } from "react";
+import { ContentItemSkeleton } from "@/components/shared";
+import { ContentList } from "@/components/widgets";
 import { fetchContent } from "@/entities/api/fetch-content";
-import { ContentItem } from "@/entities/ui/content-item";
 
 export default async function Home() {
   const contentData = await fetchContent();
@@ -15,17 +17,9 @@ export default async function Home() {
         </header>
 
         {/* Список контента */}
-        <section className="flex flex-col gap-4">
-          {contentData.map((item) => (
-            <ContentItem
-              key={item.id}
-              title={item.title}
-              excerpt={item.excerpt}
-              status={item.status}
-              updatedAt={item.updatedAt}
-            />
-          ))}
-        </section>
+        <Suspense fallback={<ContentItemSkeleton />}>
+          <ContentList contentData={contentData} />
+        </Suspense>
       </main>
     </div>
   );
