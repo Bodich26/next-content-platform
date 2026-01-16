@@ -2,7 +2,7 @@ type Props = {
   title: string;
   excerpt: string;
   status: "draft" | "published";
-  updatedAt: number;
+  updatedAt: string;
 };
 
 export const ContentItem = ({ title, excerpt, status, updatedAt }: Props) => {
@@ -19,7 +19,7 @@ export const ContentItem = ({ title, excerpt, status, updatedAt }: Props) => {
       <p className="text-sm text-gray-600">{excerpt}</p>
 
       <footer className="text-xs text-gray-600">
-        Обновлено: {new Date(updatedAt * 1000).toLocaleDateString()}
+        Обновлено: {new Date(updatedAt).toLocaleDateString("ru-RU")}
       </footer>
     </article>
   );

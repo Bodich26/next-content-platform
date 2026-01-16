@@ -1,6 +1,10 @@
-import { ContentItem } from "@/components/shared";
+import { fetchContent } from "@/entities/api/fetch-content";
+import { ContentItem } from "@/entities/ui/content-item";
 
-export default function Home() {
+export default async function Home() {
+  const contentData = await fetchContent();
+  console.log(contentData);
+
   return (
     <div className="min-h-screen bg-zinc-100">
       <main className="mx-auto max-w-4xl px-4 py-10 flex flex-col gap-8">
@@ -14,12 +18,15 @@ export default function Home() {
 
         {/* Список контента */}
         <section className="flex flex-col gap-4">
-          <ContentItem
-            title={"fdf"}
-            excerpt={"dfdf"}
-            status={"draft"}
-            updatedAt={43432489}
-          />
+          {contentData.map((item) => (
+            <ContentItem
+              key={item.id}
+              title={item.title}
+              excerpt={item.excerpt}
+              status={item.status}
+              updatedAt={item.updatedAt}
+            />
+          ))}
         </section>
       </main>
     </div>
