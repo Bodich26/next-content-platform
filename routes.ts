@@ -6,4 +6,5 @@ export const API_ROUTES = {
 
 export const PAGE_ROUTES = {
   CONTENT: process.env.CONTENT_URL!,
+  ADMIN: process.env.ADMIN_URL!,
 } as const;

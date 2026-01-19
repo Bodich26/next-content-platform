@@ -2,7 +2,7 @@ import { fetchContent } from "@/entities/api/fetch-content";
 import { ContentItem } from "@/entities/ui/content-item";
 
 export default async function AdminPage() {
-  const adminData = await fetchContent();
+  const adminData = await fetchContent("admin");
   return (
     <>
       <header className="flex flex-col gap-2">
@@ -25,6 +25,7 @@ export default async function AdminPage() {
             status={item.status}
             updatedAt={item.updatedAt}
             id={item.id}
+            isAdmin={true}
           />
         ))}
       </section>

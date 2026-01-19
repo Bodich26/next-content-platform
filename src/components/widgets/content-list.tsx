@@ -2,9 +2,9 @@ import { fetchContent } from "@/entities/api/fetch-content";
 import { ContentItem } from "@/entities/ui/content-item";
 
 export async function ContentList() {
-  const contentData = await fetchContent();
+  const contentData = await fetchContent("public");
   const publishContent = contentData.filter(
-    (item) => item.status === "published"
+    (item) => item.status === "published",
   );
 
   return (

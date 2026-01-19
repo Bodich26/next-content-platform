@@ -1,15 +1,20 @@
-import { IContent } from "@/types/type";
+import { FetchMode, IContent } from "@/types/type";
 import { API_ROUTES, BASE_MOCK_API } from "../../../routes";
 
-export const fetchContent = async (): Promise<IContent[]> => {
+export const fetchContent = async (mode: FetchMode): Promise<IContent[]> => {
   const URL = `${BASE_MOCK_API}/${API_ROUTES.CONTENT}`;
-  const res = await fetch(URL, {
-    cache: "force-cache",
-    next: {
-      revalidate: 60,
-      tags: ["content"],
-    },
-  });
+  const fetchOptions =
+    mode === "admin"
+      ? { cache: "no-store" as const }
+      : {
+          cache: "force-cache" as const,
+          next: {
+            revalidate: 60,
+            tags: ["content"],
+          },
+        };
+
+  const res = await fetch(URL, fetchOptions);
 
   if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
 

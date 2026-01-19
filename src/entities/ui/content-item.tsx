@@ -7,6 +7,7 @@ type Props = {
   excerpt: string;
   status: "draft" | "published";
   updatedAt: string;
+  isAdmin?: boolean;
 };
 
 export const ContentItem = ({
@@ -15,9 +16,16 @@ export const ContentItem = ({
   status,
   updatedAt,
   id,
+  isAdmin,
 }: Props) => {
   return (
-    <Link href={`${PAGE_ROUTES.CONTENT}/${id}`}>
+    <Link
+      href={
+        isAdmin
+          ? `${PAGE_ROUTES.ADMIN}/${PAGE_ROUTES.CONTENT}/${id}`
+          : `${PAGE_ROUTES.CONTENT}/${id}`
+      }
+    >
       <article className="flex flex-col gap-2 rounded border border-gray-300 p-4">
         <header className="flex items-center justify-between">
           <h3 className="text-lg font-semibold text-gray-600">{title}</h3>

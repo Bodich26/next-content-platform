@@ -8,7 +8,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const id = (await params).id;
-  const contentItem = await fetchContentId(id);
+  const contentItem = await fetchContentId(id, "public");
 
   return {
     title: contentItem.title,
@@ -16,9 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function ContentPage({ params }: Props) {
+export default async function ContentPageId({ params }: Props) {
   const id = (await params).id;
-  const contentItem = await fetchContentId(id);
+  const contentItem = await fetchContentId(id, "public");
 
   if (contentItem.status !== "published") {
     notFound();
