@@ -6,3 +6,5 @@ export interface IContent {
   updatedAt: string;
   createdAt: string;
 }
+
+export type FetchMode = "public" | "admin";
