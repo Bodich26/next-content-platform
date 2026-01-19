@@ -1,8 +1,14 @@
+import { Suspense } from "react";
+import { ContentItemSkeleton } from "@/components/shared";
+import { ContentList } from "@/components/widgets";
 import { fetchContent } from "@/entities/api/fetch-content";
-import { ContentItem } from "@/entities/ui/content-item";
 
 export default async function Home() {
   const contentData = await fetchContent();
+  const publishContent = contentData.filter(
+    (item) => item.status === "published"
+  );
+
   return (
     <div className="min-h-screen bg-zinc-100">
       <main className="mx-auto max-w-4xl px-4 py-10 flex flex-col gap-8">
@@ -15,17 +21,9 @@ export default async function Home() {
         </header>
 
         {/* Список контента */}
-        <section className="flex flex-col gap-4">
-          {contentData.map((item) => (
-            <ContentItem
-              key={item.id}
-              title={item.title}
-              excerpt={item.excerpt}
-              status={item.status}
-              updatedAt={item.updatedAt}
-            />
-          ))}
-        </section>
+        <Suspense fallback={<ContentItemSkeleton />}>
+          <ContentList contentData={publishContent} />
+        </Suspense>
       </main>
     </div>
   );
