@@ -12,7 +12,7 @@ export const fetchContentId = cache(
             cache: "force-cache" as const,
             next: {
               revalidate: 60,
-              tags: ["content"],
+              tags: [`content-${id}`],
             },
           };
 
