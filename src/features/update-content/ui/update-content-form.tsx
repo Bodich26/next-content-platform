@@ -1,6 +1,8 @@
 "use client";
 import { FormState } from "@/types/type";
 import { useState } from "react";
+import { useHandleChangeForm } from "../model/use-handle-change-form";
+import { useUpdateForm } from "../model/use-update-form";
 
 type Props = {
   formData: FormState;
@@ -14,21 +16,8 @@ export const UpdateContentForm = ({ formData, cancelForm }: Props) => {
     status: formData.status,
   });
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    console.log(formState);
-  };
-
-  const handleChange: React.ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-  > = (e) => {
-    const { name, value } = e.target;
-
-    setFormState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const { handleSubmit } = useUpdateForm(formState);
+  const { handleChange } = useHandleChangeForm(setFormState);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-gray-600">
@@ -76,7 +65,7 @@ export const UpdateContentForm = ({ formData, cancelForm }: Props) => {
           Update
         </button>
         <button
-          type="submit"
+          type="button"
           className=" font-semibold text-gray-50 w-30 bg-gray-400 px-4 py-2 rounded hover:bg-gray-500 cursor-pointer"
           onClick={cancelForm}
         >

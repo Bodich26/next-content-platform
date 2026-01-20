@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { UpdateContentForm } from "@/features";
+import { UpdateContentForm } from "@/features/update-content";
 import { FormState } from "@/types/type";
 
 export const SwitchStateForm = ({ title, status, excerpt }: FormState) => {
