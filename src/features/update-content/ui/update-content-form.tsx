@@ -11,12 +11,13 @@ type Props = {
 
 export const UpdateContentForm = ({ formData, cancelForm }: Props) => {
   const [formState, setFormState] = useState<FormState>({
+    id: formData.id,
     title: formData.title,
     excerpt: formData.excerpt,
     status: formData.status,
   });
 
-  const { handleSubmit } = useUpdateForm(formState);
+  const { handleSubmit } = useUpdateForm(formState, cancelForm);
   const { handleChange } = useHandleChangeForm(setFormState);
 
   return (

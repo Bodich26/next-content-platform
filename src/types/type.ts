@@ -10,4 +10,4 @@ export interface IContent {
 export type ContentStatus = "draft" | "published";
 export type FetchMode = "public" | "admin";
 
-export type FormState = Omit<IContent, "id" | "updatedAt" | "createdAt">;
+export type FormState = Omit<IContent, "updatedAt" | "createdAt">;

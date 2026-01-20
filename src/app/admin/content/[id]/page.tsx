@@ -14,6 +14,7 @@ export default async function AdminContentPageId({ params }: Props) {
       title={contentItem.title}
       excerpt={contentItem.excerpt}
       status={contentItem.status}
+      id={contentItem.id}
     />
   );
 }
