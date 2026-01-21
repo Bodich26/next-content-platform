@@ -9,6 +9,11 @@ export async function ContentList() {
 
   return (
     <section className="flex flex-col gap-4">
+      {!contentData && (
+        <p className="text-2xl text-center w-full text-gray-600">
+          Ошибка при получении публикаций!
+        </p>
+      )}
       {publishContent.length === 0 && (
         <p className="text-2xl text-center w-full text-gray-600">
           Публикаций не найдено!
