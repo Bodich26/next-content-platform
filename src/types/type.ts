@@ -1,5 +1,6 @@
 export interface IContent {
   id: string;
+  image: string;
   title: string;
   excerpt: string;
   status: ContentStatus;

@@ -31,6 +31,7 @@ export const fetchContent = async (mode: FetchMode): Promise<IContent[]> => {
 
   return content.map((item) => ({
     id: item.id,
+    image: item.image,
     title: item.title,
     excerpt: item.excerpt,
     status: item.status,

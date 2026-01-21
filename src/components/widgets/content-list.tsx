@@ -20,14 +20,7 @@ export async function ContentList() {
         </p>
       )}
       {publishContent.map((item) => (
-        <ContentItem
-          key={item.id}
-          title={item.title}
-          excerpt={item.excerpt}
-          status={item.status}
-          updatedAt={item.updatedAt}
-          id={item.id}
-        />
+        <ContentItem key={item.id} contentItem={item} />
       ))}
     </section>
   );
