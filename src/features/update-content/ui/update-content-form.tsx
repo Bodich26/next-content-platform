@@ -10,19 +10,21 @@ type Props = {
 };
 
 export const UpdateContentForm = ({ formData, cancelForm }: Props) => {
-  const [formState, setFormState] = useState<FormState>({
-    id: formData.id,
-    title: formData.title,
-    excerpt: formData.excerpt,
-    status: formData.status,
-  });
+  const [formState, setFormState] = useState<FormState>(formData);
 
-  const { handleSubmit } = useUpdateForm(formState, cancelForm);
   const { handleChange } = useHandleChangeForm(setFormState);
+  const { handleSubmit, error, isPending } = useUpdateForm(
+    formState,
+    cancelForm,
+  );
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-gray-600">
       <h3 className="text-3xl font-bold">Редактирование Публикации</h3>
+
+      {error && (
+        <p className="rounded bg-red-100 px-3 py-2 text-red-700">{error}</p>
+      )}
 
       <label className="font-semibold flex items-start gap-2">
         Title
@@ -63,7 +65,7 @@ export const UpdateContentForm = ({ formData, cancelForm }: Props) => {
           type="submit"
           className=" font-semibold text-gray-600 w-30 bg-amber-400 px-4 py-2 rounded hover:bg-amber-500 cursor-pointer"
         >
-          Update
+          {isPending ? "Saving..." : "Update"}
         </button>
         <button
           type="button"

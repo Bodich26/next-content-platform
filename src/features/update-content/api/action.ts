@@ -1,10 +1,13 @@
 "use server";
-import { FormState } from "@/types/type";
-import { API_ROUTES, BASE_MOCK_API, PAGE_ROUTES } from "../../../../routes";
-import { revalidatePath, updateTag } from "next/cache";
+import { FormState, UpdateContentResult } from "@/types/type";
+import { API_ROUTES, BASE_MOCK_API } from "../../../../routes";
+import { updateTag } from "next/cache";
 
-export async function updateContentAction(data: FormState) {
+export async function updateContentAction(
+  data: FormState,
+): Promise<UpdateContentResult> {
   const URL = `${BASE_MOCK_API}${API_ROUTES.CONTENT}/${data.id}`;
+
   try {
     const res = await fetch(URL, {
       method: "PATCH",
@@ -20,12 +23,14 @@ export async function updateContentAction(data: FormState) {
     });
 
     if (!res.ok) {
-      throw new Error(`Не удалось обновить публикацию ${data.id}`);
+      return { success: false, error: "Failed to update content" };
     }
 
     updateTag("content");
     updateTag(`content-${data.id}`);
-  } catch (error) {
-    return console.error("Error updating content status:", error);
+
+    return { success: true };
+  } catch {
+    return { success: false, error: "Unexpected server error" };
   }
 }
