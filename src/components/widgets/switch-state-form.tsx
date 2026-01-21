@@ -3,14 +3,20 @@ import React from "react";
 import { UpdateContentForm } from "@/features/update-content";
 import { FormState } from "@/types/type";
 
-export const SwitchStateForm = ({ title, status, excerpt, id }: FormState) => {
+export const SwitchStateForm = ({
+  title,
+  status,
+  excerpt,
+  id,
+  image,
+}: FormState) => {
   const [switchForm, setSwitchForm] = React.useState(false);
 
   return (
     <>
       {switchForm ? (
         <UpdateContentForm
-          formData={{ title, status, excerpt, id }}
+          formData={{ title, status, excerpt, id, image }}
           cancelForm={() => setSwitchForm(false)}
         />
       ) : (

@@ -15,6 +15,7 @@ export default async function AdminContentPageId({ params }: Props) {
       excerpt={contentItem.excerpt}
       status={contentItem.status}
       id={contentItem.id}
+      image={contentItem.image}
     />
   );
 }

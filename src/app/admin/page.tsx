@@ -18,15 +18,7 @@ export default async function AdminPage() {
           </p>
         )}
         {adminData.map((item) => (
-          <ContentItem
-            key={item.id}
-            title={item.title}
-            excerpt={item.excerpt}
-            status={item.status}
-            updatedAt={item.updatedAt}
-            id={item.id}
-            isAdmin={true}
-          />
+          <ContentItem key={item.id} contentItem={item} isAdmin={true} />
         ))}
       </section>
     </>

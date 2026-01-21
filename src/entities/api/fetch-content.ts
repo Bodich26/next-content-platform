@@ -1,5 +1,6 @@
 import { FetchMode, IContent } from "@/types/type";
 import { API_ROUTES, BASE_MOCK_API } from "../../../routes";
+import { notFound } from "next/navigation";
 
 export const fetchContent = async (mode: FetchMode): Promise<IContent[]> => {
   const URL = `${BASE_MOCK_API}/${API_ROUTES.CONTENT}`;
@@ -16,9 +17,13 @@ export const fetchContent = async (mode: FetchMode): Promise<IContent[]> => {
 
   const res = await fetch(URL, fetchOptions);
 
+  if (res.status === 404) {
+    notFound();
+  }
+
   if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
 
-  const content: IContent = await res.json();
+  const content = (await res.json()) as IContent;
 
   if (!Array.isArray(content)) {
     throw new Error("Некорректный формат ответа");
@@ -26,6 +31,7 @@ export const fetchContent = async (mode: FetchMode): Promise<IContent[]> => {
 
   return content.map((item) => ({
     id: item.id,
+    image: item.image,
     title: item.title,
     excerpt: item.excerpt,
     status: item.status,
